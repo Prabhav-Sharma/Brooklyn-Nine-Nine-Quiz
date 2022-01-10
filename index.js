@@ -1,25 +1,37 @@
+/* ES5 Version code 
 var readLine = require('readline-sync');
 var chalk = require('chalk');
 
 var userName = readLine.question("What's your name? ");
 console.log(chalk.bgBlue('Welcome ' + userName + "! to Brooklyn Nine Nine Quiz \n \n Instruction: Please enter the option (A,B,C,D)"));
 var score = 0;
+*/
 
-function play(question, answer) {
+//ES6 Version
 
-  var userAnswer = readLine.question(question);
+const chalk = require(`chalk`);
+const readLine = require(`readline-sync`);
+const userName = readLine.question(`What's your name?`);
+console.log(chalk.bgBlue(`Welcome ${userName}! to Brooklyn Nine Nine Quiz \n \n Instruction: Please enter the option (A,B,C,D)`));
+let score = 0;
+
+//ES5 function play(question, answer) {
+
+//ES6 
+const play =(question, answer)=>{
+ let userAnswer= readLine.question(question);
 
   if (userAnswer.toUpperCase() === answer.toUpperCase()) {
-    console.log(chalk.green("That's right! Nine-Nine!!"))
+    console.log(chalk.green(`That's right! Nine-Nine!!`))
     score++;
   } else {
-    console.log(chalk.bgRed('Wrong Answer, are you really even a fan bruh?'));
-    console.log(chalk.yellowBright('The answer is: ' + answer));
+    console.log(chalk.bgRed(`Wrong Answer, are you really even a fan bruh?`));
+    console.log(chalk.yellowBright(`The answer is: ${answer}`));
   }
-  console.log(chalk.cyanBright('Score: ' + score));
+  console.log(chalk.cyanBright(`Score: ${score}`));
 }
 
-var questions = [{
+const questions = [{
     question: "Let's start easy: What's Gina's last name? \n A.Peritti \n B.Lenetti \n C.Laretti \n D.Penitti \n",
     answer: "B"
   },
@@ -61,34 +73,8 @@ var questions = [{
   }
 ];
 
-
-var counter = 0;
-for (var i = 0; i < questions.length; i++) {
-  if (i < 5) {
-    play(questions[i].question, questions[i].answer);
-  }
-  if (i >= 5) {
-    if (score > 3) {
-      if (counter === 0) {
-        counter++;
-        console.log(chalk.cyanBright("Welcome to Round 2!!"));
-      }
-      play(questions[i].question, questions[i].answer);
-    } else {
-      console.log(chalk.redBright("It was fun, but it's over for us " + userName + ", you couldn't make it to round 2!"));
-      printScoreCard();
-      break;
-    }
-  }
-  if (i === 9) {
-    printScoreCard();
-    checkForHighScore();
-  }
-
-  if (score === 10) {
-    console.log(chalk.cyanBright('"You know Brooklyn nine nine better than all the other dum-dums" \n - Rosa Diaz"'));
-  }
-  var scoreCard = [{
+//ES5 function printScoreCard() {
+  let scoreCard = [{
     name: "Prakhar",
     score: 7
   }, {
@@ -99,24 +85,55 @@ for (var i = 0; i < questions.length; i++) {
     score: score
   }];
 
-};
 
-
-function printScoreCard() {
-  for (var i = 0; i < scoreCard.length; i++) {
-    console.log(scoreCard[i]);
+//ES6 version 
+const printScoreCard=_=>{
+  for (let i = 0; i < scoreCard.length; i++) {
+      console.log(scoreCard[i]);
+    }
+    console.log(`Send me a screenshot to save your score`);
   }
-  console.log("Send me a screenshot to save your score");
-}
-
-function checkForHighScore() {
-  var counter2 = 0;
-  for (var i = 0; i < scoreCard.length - 1; i++) {
-    if (score > scoreCard[i].score) {
-      if (counter2 === 0) {
-        counter2++;
-        console.log(chalk.yellowBright("Highscore!!!!"));
+  
+  //ES5 function checkForHighScore() {
+    const checkForHighScore = _ =>{
+    let counter2 = 0;
+    for (let i = 0; i < scoreCard.length - 1; i++) {
+      if (score > scoreCard[i].score) {
+        if (counter2 === 0) {
+          counter2++;
+          console.log(chalk.yellowBright(`Highscore!!!!`));
+        }
       }
     }
   }
+
+let counter = 0;
+for (let i = 0; i < questions.length; i++) {
+  if (i < 5) {
+    play(questions[i].question, questions[i].answer);
+  }
+  if (i >= 5) {
+    if (score > 3) {
+      if (counter === 0) {
+        counter++;
+        console.log(chalk.cyanBright(`Welcome to Round 2!!`));
+      }
+      play(questions[i].question, questions[i].answer);
+    } else {
+      console.log(chalk.redBright(`It was fun, but it's over for us ${userName} , you couldn't make it to round 2!`));
+      printScoreCard();
+      break;
+    }
+  }
+  if (i === 9) {
+    printScoreCard();
+    checkForHighScore();
+  }
+
+  if (score === 10) {
+    console.log(chalk.cyanBright(`You know Brooklyn nine nine better than all the other dum-dums
+     - Rosa Diaz`));
+  }
+
 }
+
